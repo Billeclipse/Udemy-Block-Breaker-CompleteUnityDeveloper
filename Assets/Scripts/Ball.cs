@@ -3,17 +3,21 @@ using System.Collections;
 
 public class Ball : MonoBehaviour {
 
+	[SerializeField] public AudioClip[] ballSounds;
+
 	[SerializeField] float xPush = 2f;
-	[SerializeField] float yPush = 10f;
+	[SerializeField] float yPush = 10f;	
 
 	private GameObject paddle;
 	private bool hasStarted = false;
 	private Vector3 paddleToBallVector;
+	private AudioSource myAudioSource;
 
 	// Use this for initialization
 	void Start () {
 		paddle = GameObject.FindGameObjectWithTag("Paddle");
-		paddleToBallVector = transform.position - paddle.transform.position;		
+		paddleToBallVector = transform.position - paddle.transform.position;
+		myAudioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -34,7 +38,8 @@ public class Ball : MonoBehaviour {
 		Vector2 tweak = new Vector2(Random.Range(0f, 0.2f), Random.Range(0f, 0.2f));
 		
 		if(hasStarted){
-			GetComponent<AudioSource>().Play();
+			AudioClip clip = ballSounds[Random.Range(0, ballSounds.Length)];
+			myAudioSource.PlayOneShot(clip);
 			GetComponent<Rigidbody2D>().velocity += tweak;
 		}
 	}

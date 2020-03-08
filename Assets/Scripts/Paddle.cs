@@ -3,13 +3,13 @@ using System.Collections;
 
 public class Paddle : MonoBehaviour {
 	
-	[SerializeField] bool autoPlay = false;
 	[SerializeField] float minX = 1f;
 	[SerializeField] float maxX = 15f;
 	[SerializeField] float screenWidthInUnits = 16f;
 
 	private GameObject ball;
-	
+	private bool autoPlay = false;
+
 	void Start(){
 		ball = GameObject.FindGameObjectWithTag("Ball");
 	}
@@ -35,5 +35,10 @@ public class Paddle : MonoBehaviour {
 		float mousePosInBlocks = Input.mousePosition.x / Screen.width * screenWidthInUnits;
 		paddlePos.x = Mathf.Clamp(mousePosInBlocks,minX,maxX);
 		transform.position = paddlePos;	
+	}
+	
+	public void setAutoPlay(bool value)
+	{
+		autoPlay = value;
 	}
 }

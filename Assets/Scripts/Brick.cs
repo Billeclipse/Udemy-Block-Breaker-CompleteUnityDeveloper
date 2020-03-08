@@ -6,7 +6,7 @@ public class Brick : MonoBehaviour {
 	[SerializeField] public AudioClip crack;
 	[SerializeField] public Sprite[] hitSprites;	
 	[SerializeField] public GameObject smoke;
-	[SerializeField] public float crackVolume = 0.05f;
+	[SerializeField] public float crackVolume = 0.4f;
 
 	private static int breakableCount = 0;
 	private int timesHit;
