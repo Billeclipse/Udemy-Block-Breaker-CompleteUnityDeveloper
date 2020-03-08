@@ -11,13 +11,8 @@ public class MusicPlayer : MonoBehaviour {
 			Destroy(gameObject);
 			//print("Duplicate music player self_destructing!");
 		}else{
-			instance=this;
+			instance = this;
 			GameObject.DontDestroyOnLoad(gameObject);
 		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }

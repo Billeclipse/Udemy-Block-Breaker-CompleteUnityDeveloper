@@ -3,12 +3,15 @@ using System.Collections;
 
 public class Paddle : MonoBehaviour {
 	
-	public bool autoPlay = false;
-	public float minX,maxX;
-	private Ball ball;
+	[SerializeField] bool autoPlay = false;
+	[SerializeField] float minX = 1f;
+	[SerializeField] float maxX = 15f;
+	[SerializeField] float screenWidthInUnits = 16f;
+
+	private GameObject ball;
 	
 	void Start(){
-		ball = GameObject.FindObjectOfType<Ball>();	
+		ball = GameObject.FindGameObjectWithTag("Ball");
 	}
 			
 	// Update is called once per frame
@@ -21,16 +24,16 @@ public class Paddle : MonoBehaviour {
 	}
 	
 	void AutoPlay(){
-		Vector3 paddlePos = new Vector3 (0.5f, this.transform.position.y, 0f);
+		Vector3 paddlePos = new Vector3(0.5f, transform.position.y, 0f);
 		Vector3 ballPos = ball.transform.position;
-		paddlePos.x = Mathf.Clamp(ballPos.x,minX,maxX);
-		this.transform.position = paddlePos;
+		paddlePos.x = Mathf.Clamp(ballPos.x, minX, maxX);
+		transform.position = paddlePos;	
 	}
 	
 	void MoveWithMouse(){
-		Vector3 paddlePos = new Vector3 (0.5f, this.transform.position.y, 0f);
-		float mousePosInBlocks = Input.mousePosition.x / Screen.width * 16;
+		Vector3 paddlePos = new Vector3 (0.5f, transform.position.y, 0f);
+		float mousePosInBlocks = Input.mousePosition.x / Screen.width * screenWidthInUnits;
 		paddlePos.x = Mathf.Clamp(mousePosInBlocks,minX,maxX);
-		this.transform.position = paddlePos;	
+		transform.position = paddlePos;	
 	}
 }
