@@ -11,7 +11,8 @@ public class Brick : MonoBehaviour {
 	private static int breakableCount = 0;
 	private int timesHit;
 	private LevelManager levelManager;
-	private bool isBreakable;	
+	private bool isBreakable;
+	private GameStatus gameStatus;
 			
 	// Use this for initialization
 	void Start () {
@@ -20,8 +21,9 @@ public class Brick : MonoBehaviour {
 		if(isBreakable){
 			breakableCount++;
 		}		
-		levelManager = GameObject.FindObjectOfType<LevelManager>();
-		timesHit=0;
+		levelManager = FindObjectOfType<LevelManager>();
+		gameStatus = FindObjectOfType<GameStatus>();
+		timesHit =0;
 	}
 
 	[System.Obsolete]
@@ -44,16 +46,23 @@ public class Brick : MonoBehaviour {
 			timesHit++;
 			if (timesHit >= maxHits)
 			{
-				breakableCount--;
-				levelManager.BrickDestroyed();
-				SmokeEffect();
-				Destroy(gameObject);
+				DestroyBlock();
 			}
 			else
 			{
 				LoadSprites();
 			}
 		}		
+	}
+
+	[System.Obsolete]
+	private void DestroyBlock()
+	{
+		gameStatus.AddToScore();
+		breakableCount--;
+		levelManager.BrickDestroyed();
+		SmokeEffect();
+		Destroy(gameObject);
 	}
 
 	[System.Obsolete]
