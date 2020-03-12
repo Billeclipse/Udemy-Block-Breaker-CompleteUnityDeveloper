@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour {
 	public void LoadStartMenuScene()
 	{
 		Brick.setBreakableCount(0);
-		FindObjectOfType<GameStatus>().AutoDestroy();
+		FindObjectOfType<GameSession>().AutoDestroy();
 		SceneManager.LoadScene(0);
 	}
 

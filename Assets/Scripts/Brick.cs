@@ -6,13 +6,13 @@ public class Brick : MonoBehaviour {
 	[SerializeField] public AudioClip crack;
 	[SerializeField] public Sprite[] hitSprites;	
 	[SerializeField] public GameObject smoke;
-	[SerializeField] public float crackVolume = 0.4f;
+	[SerializeField] public float crackVolume = 0.4f;	
 
 	private static int breakableCount = 0;
 	private int timesHit;
 	private LevelManager levelManager;
 	private bool isBreakable;
-	private GameStatus gameStatus;
+	private GameSession gameSession;
 			
 	// Use this for initialization
 	void Start () {
@@ -22,7 +22,7 @@ public class Brick : MonoBehaviour {
 			breakableCount++;
 		}		
 		levelManager = FindObjectOfType<LevelManager>();
-		gameStatus = FindObjectOfType<GameStatus>();
+		gameSession = FindObjectOfType<GameSession>();
 		timesHit =0;
 	}
 
@@ -58,7 +58,7 @@ public class Brick : MonoBehaviour {
 	[System.Obsolete]
 	private void DestroyBlock()
 	{
-		gameStatus.AddToScore();
+		gameSession.AddToScore();
 		breakableCount--;
 		levelManager.BrickDestroyed();
 		SmokeEffect();
@@ -71,6 +71,7 @@ public class Brick : MonoBehaviour {
 		{
 			GameObject smokeEffect = Instantiate(smoke, transform.position, Quaternion.identity) as GameObject;
 			smokeEffect.GetComponent<ParticleSystem>().startColor = gameObject.GetComponent<SpriteRenderer>().color;
+			Destroy(smokeEffect, 1f);
 		}		
 	}
 
@@ -79,7 +80,7 @@ public class Brick : MonoBehaviour {
 		if(hitSprites != null && hitSprites[spriteIndex] != null){
 			GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex];	
 		}else{
-			Debug.LogWarning("Brick Sprite Missing");
+			Debug.LogWarning("Brick Sprite Missing / GameObject: " + gameObject.name);
 		}	
 	}
 

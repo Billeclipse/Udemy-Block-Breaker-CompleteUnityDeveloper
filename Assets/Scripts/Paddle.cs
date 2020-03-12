@@ -8,7 +8,6 @@ public class Paddle : MonoBehaviour {
 	[SerializeField] float screenWidthInUnits = 16f;
 
 	private GameObject ball;
-	private bool autoPlay = false;
 
 	void Start(){
 		ball = GameObject.FindGameObjectWithTag("Ball");
@@ -16,6 +15,7 @@ public class Paddle : MonoBehaviour {
 			
 	// Update is called once per frame
 	void Update () {
+		bool autoPlay = FindObjectOfType<GameSession>().getAutoPlay();
 		if(!autoPlay){
 			MoveWithMouse();
 		}else{
@@ -37,8 +37,5 @@ public class Paddle : MonoBehaviour {
 		transform.position = paddlePos;	
 	}
 	
-	public void setAutoPlay(bool value)
-	{
-		autoPlay = value;
-	}
+	
 }
